@@ -1,0 +1,35 @@
+const dipto = "https://www.noobs-api.rf.gd/dipto";
+const axios = require("axios");
+
+module.exports = {
+  config: {
+    name: "numinfo",
+    author: "Dipto",
+    role: 0,
+    category: "info",
+    commandCategory: "Information",
+    guide: "numinfo <number>",
+    version: "1.0.0"
+  },
+
+  onStart: async function ({ api, event, args }) {
+    if (!args[0]) return api.sendMessage("⚠️ 𝗣𝗹𝗲𝗮𝘀𝗲 𝗲𝗻𝘁𝗲𝗿 𝗮 𝗻𝘂𝗺𝗯𝗲𝗿.!", event.threadID, event.messageID);
+
+    let number = args[0]?.startsWith("01") ? "88" + args[0] : args[0];
+
+    api.setMessageReaction("⌛", event.messageID, () => {}, true);
+
+    try {
+      let { data } = await axios.get(`${dipto}/numinfo?number=${number}`);
+      let msg = { body: data.info.map(i => `Name: ${i.name} \nType: ${i.type || "Not found"}`).join("\n") };
+
+      if (data.image) 
+        msg.attachment = (await axios.get(data.image, { responseType: "stream" })).data;
+
+      api.sendMessage(msg, event.threadID, event.messageID);
+    } catch (e) {
+      api.sendMessage(`❌ Error: ${e.message}`, event.threadID, event.messageID);
+      console.log(e);
+    }
+  }
+};

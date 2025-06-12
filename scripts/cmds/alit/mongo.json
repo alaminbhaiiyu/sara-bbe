@@ -1,0 +1,6 @@
+{
+    "mongoURL": "mongodb+srv://ikalaminss:uchR2FJzOGBS1flG@cluster0.lugxuhr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    "dbName": "bank",
+    "collectionName": "balance"
+  }
+  
