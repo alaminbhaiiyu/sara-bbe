@@ -36,19 +36,3 @@ function startProject() {
 }
 
 startProject();
-const express = require('express');
-const app = express();
-const PORT = 8000;
-
-// Middleware (optional)
-app.use(express.json());
-
-// Default route
-app.get('/', (req, res) => {
-  res.send('✅ Server is running on http://localhost:3030');
-});
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`✅ Server is running on http://localhost:${PORT}`);
-});
